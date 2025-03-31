@@ -1,3 +1,4 @@
+from ProphetBot.models.categories.categories import c_rarity_table
 from ProphetBot.models.db_tables import *
 from sqlalchemy.sql.selectable import FromClause
 

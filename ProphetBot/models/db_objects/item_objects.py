@@ -1,6 +1,7 @@
 import math
 from typing import List
 import discord
+from ProphetBot.models.categories.categories import Rarity
 from ProphetBot.models.db_objects.category_objects import *
 
 

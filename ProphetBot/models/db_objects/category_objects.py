@@ -2,99 +2,10 @@ import discord.utils
 from discord import ApplicationContext, Role
 
 
-class Rarity(object):
-    def __init__(self, id, value, abbreviation, seek_dc):
-        """
-        :param id: int
-        :param value: str
-        :param abbreviation: List[str]
-        """
-
-        self.id = id
-        self.value = value
-        self.abbreviation = abbreviation
-        self.seek_dc = seek_dc
 
 
-class BlacksmithType(object):
-    def __init__(self, id, value):
-        """
-        :param id: int
-        :param value: str
-        """
-
-        self.id = id
-        self.value = value
 
 
-class ConsumableType(object):
-    def __init__(self, id, value):
-        """
-        :param id: int
-        :param value: str
-        """
-
-        self.id = id
-        self.value = value
-
-
-class MagicSchool(object):
-    def __init__(self, id, value):
-        """
-        :param id: int
-        :param value: str
-        """
-
-        self.id = id
-        self.value = value
-
-
-class CharacterClass(object):
-    def __init__(self, id, value):
-        """
-        :param id: int
-        :param value: str
-        """
-
-        self.id = id
-        self.value = value
-
-
-class CharacterSubclass(object):
-    def __init__(self, id, parent, value):
-        """
-        :param id: int
-        :param parent: int
-        :param value: str
-        """
-
-        self.id = id
-        self.parent = parent
-        self.value = value
-
-
-class CharacterRace(object):
-    def __init__(self, id, value):
-        """
-        :param id: int
-        :param value: str
-        """
-
-        self.id = id
-        self.value = value
-
-
-class CharacterSubrace(object):
-    def __init__(self, id, parent, value):
-        """
-        :param id: int
-        :param parent: int
-        :param value: str
-        """
-
-        self.id = id
-        self.parent = parent
-        self.value = value
 
 
 class GlobalModifier(object):

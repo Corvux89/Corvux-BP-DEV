@@ -3,79 +3,9 @@ from marshmallow import Schema, fields, post_load
 from ProphetBot.models.db_objects.category_objects import *
 
 
-class RaritySchema(Schema):
-    id = fields.Integer(data_key="id", required=True)
-    value = fields.String(data_key="value", required=True)
-    abbreviation = fields.List(fields.String, data_key="abbreviation", required=True)
-    seek_dc = fields.Integer(data_key="seek_dc", required=True)
-    @post_load
-    def make_c_rarity(self, data, **kwargs):
-        return Rarity(**data)
 
 
-class BlacksmithTypeSchema(Schema):
-    id = fields.Integer(data_key="id", required=True)
-    value = fields.String(data_key="value", required=True)
 
-    @post_load
-    def make_c_blacksmith_type(self, data, **kwargs):
-        return BlacksmithType(**data)
-
-
-class ConsumableTypeSchema(Schema):
-    id = fields.Integer(data_key="id", required=True)
-    value = fields.String(data_key="value", required=True)
-
-    @post_load
-    def make_c_consumable_type(self, data, **kwargs):
-        return ConsumableType(**data)
-
-
-class MagicSchoolSchema(Schema):
-    id = fields.Integer(data_key="id", required=True)
-    value = fields.String(data_key="value", required=True)
-
-    @post_load
-    def make_c_magic_school(self, data, **kwargs):
-        return MagicSchool(**data)
-
-
-class CharacterClassSchema(Schema):
-    id = fields.Integer(data_key="id", required=True)
-    value = fields.String(data_key="value", required=True)
-
-    @post_load
-    def make_c_character_class(self, data, **kwargs):
-        return CharacterClass(**data)
-
-
-class CharacterSubclassSchema(Schema):
-    id = fields.Integer(data_key="id", required=True)
-    parent = fields.Integer(data_key="parent", required=True)
-    value = fields.String(data_key="value", required=True)
-
-    @post_load
-    def make_c_character_subclass(self, data, **kwargs):
-        return CharacterSubclass(**data)
-
-
-class CharacterRaceSchema(Schema):
-    id = fields.Integer(data_key="id", required=True)
-    value = fields.String(data_key="value", required=True)
-
-    @post_load
-    def make_c_character_race(self, data, **kwargs):
-        return CharacterRace(**data)
-
-
-class CharacterSubraceSchema(Schema):
-    id = fields.Integer(data_key="id", required=True)
-    parent = fields.Integer(data_key="parent", required=True)
-    value = fields.String(data_key="value", required=True)
-
-    @post_load
-    def make_c_character_subrace(self, data, **kwargs):
-        return CharacterSubrace(**data)
 
 
 class GlobalModifierSchema(Schema):

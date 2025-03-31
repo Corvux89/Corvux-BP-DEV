@@ -3,65 +3,11 @@ from sqlalchemy import Column, Integer, String, Numeric, BOOLEAN, BigInteger
 from ProphetBot.models.db_tables.base import metadata
 
 
-c_rarity_table = sa.Table(
-    "c_rarity",
-    metadata,
-    Column("id", Integer, primary_key=True, autoincrement='auto'),
-    Column("value", String, nullable=False),
-    Column("abbreviation", sa.ARRAY(String), nullable=True),
-    Column("seek_dc", Integer, nullable=False)
-)
 
-c_blacksmith_type_table = sa.Table(
-    "c_blacksmith_type",
-    metadata,
-    Column("id", Integer, primary_key=True, autoincrement='auto'),
-    Column("value", String, nullable=False)
-)
 
-c_consumable_type_table = sa.Table(
-    "c_consumable_type",
-    metadata,
-    Column("id", Integer, primary_key=True, autoincrement='auto'),
-    Column("value", String, nullable=False)
-)
 
-c_magic_school_table = sa.Table(
-    "c_magic_school",
-    metadata,
-    Column("id", Integer, primary_key=True, autoincrement='auto'),
-    Column("value", String, nullable=False)
-)
 
-c_character_class_table = sa.Table(
-    "c_character_class",
-    metadata,
-    Column("id", Integer, primary_key=True, autoincrement='auto'),
-    Column("value", String, nullable=False)
-)
 
-c_character_subclass_table = sa.Table(
-    "c_character_subclass",
-    metadata,
-    Column("id", Integer, primary_key=True, autoincrement='auto'),
-    Column("parent", Integer, nullable=False),  # ref: > c_character_class.id
-    Column("value", String, nullable=False)
-)
-
-c_character_race_table = sa.Table(
-    "c_character_race",
-    metadata,
-    Column("id", Integer, primary_key=True, autoincrement='auto'),
-    Column("value", String, nullable=False)
-)
-
-c_character_subrace_table = sa.Table(
-    "c_character_subrace",
-    metadata,
-    Column("id", Integer, primary_key=True, autoincrement='auto'),
-    Column("parent", Integer, nullable=False),  # ref: > c_character_race.id
-    Column("value", String, nullable=False)
-)
 
 c_global_modifier_table = sa.Table(
     "c_global_modifier",
