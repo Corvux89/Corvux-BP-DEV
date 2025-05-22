@@ -16,8 +16,8 @@ log = logging.getLogger(__name__)
 async def get_table_values(conn, comp: CompendiumObject) -> list:
     d1, d2 = {}, {}
 
-    async for row in conn.execute(comp.table.select()):
-        val = comp.schema().load(row)
+    async for row in conn.execute(comp.__table__.select()):
+        val = comp.__Schema__().load(row)
 
         d1[val.id] = val
         attr_list = [
@@ -36,8 +36,6 @@ async def get_table_values(conn, comp: CompendiumObject) -> list:
 
 
 class Compendium:
-
-    # noinspection PyTypeHints
     def __init__(self):
 
         """
@@ -51,7 +49,7 @@ class Compendium:
         self.categories = CATEGORY_LIST
 
         for category in self.categories:
-            setattr(self, category.key, [])
+            setattr(self, category.__key__, [])
 
     async def reload_categories(self, bot):
         if not hasattr(bot, "db"):
@@ -61,13 +59,14 @@ class Compendium:
 
         async with bot.db.acquire() as conn:
             for category in self.categories:
-                setattr(self, category.key, await get_table_values(conn, category))
+                setattr(self, category.__key__, await get_table_values(conn, category))
 
        
         end = timer()
         log.info(f'COMPENDIUM: Categories reloaded in [ {end - start:.2f} ]s')
         bot.dispatch("compendium_loaded")
 
+    # TODO - Work on this
     async def load_items(self, bot):
         if not hasattr(bot, "db"):
             return
@@ -87,7 +86,7 @@ class Compendium:
             log.info(f"COMPENDIUM: Items reloaded in [ {end - start:.2f} ]s")
             bot.dispatch("items_loaded")
 
-    def get_object(self, cls, value: str | int = None):
+    def get_object(self, cls: CompendiumObject, value: str | int = None):
         """
         Retrieve an object from the compendium based on the provided class and value.
         Args:
@@ -100,32 +99,39 @@ class Compendium:
         """
         try:
             for category in self.categories:
-                if category.obj == cls:
-                    for cat_value in getattr(self, category.key)[
+                category: CompendiumObject
+                if category == cls:
+                    for cat_value in getattr(self, category.__key__)[
                         0 if isinstance(value, int) else 1
                     ]:
                         if isinstance(cat_value, str) and isinstance(value, str):
                             if cat_value.lower() == value.lower():
-                                return getattr(self, category.key)[
+                                return getattr(self, category.__key__)[
                                     0 if isinstance(value, int) else 1
                                 ][cat_value]
                         elif cat_value == value:
-                            return getattr(self, category.key)[
+                            return getattr(self, category.__key__)[
                                 0 if isinstance(value, int) else 1
                             ][cat_value]
 
                     # Approximate match for strings
-                    for cat_value in getattr(self, category.key)[
+                    for cat_value in getattr(self, category.__key__)[
                         0 if isinstance(value, int) else 1
                     ]:
                         if isinstance(cat_value, str) and isinstance(value, str):
                             if cat_value.lower().startswith(value.lower()):
-                                return getattr(self, category.key)[
+                                return getattr(self, category.__key__)[
                                     0 if isinstance(value, int) else 1
                                 ][cat_value]
         except:
             raise ObjectNotFound()
         return None
+
+    def get_values(self, cls: CompendiumObject) -> list[CompendiumObject]:
+        try:
+            return list(getattr(self, cls.__key__)[0].values())
+        except:
+            raise ObjectNotFound()
 
     def get_activity(self, activity: str | int = None):
         """

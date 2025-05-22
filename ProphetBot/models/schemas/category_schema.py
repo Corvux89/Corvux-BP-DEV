@@ -5,59 +5,6 @@ from ProphetBot.models.db_objects.category_objects import *
 
 
 
-
-
-
-class GlobalModifierSchema(Schema):
-    id = fields.Integer(data_key="id", required=True)
-    value = fields.String(data_key="value", required=True)
-    adjustment = fields.Float(data_key="adjustment", required=True)
-    max = fields.Integer(data_key="max", required=True)
-
-    @post_load
-    def make_c_global_modifier(self, data, **kwargs):
-        return GlobalModifier(**data)
-
-
-class HostStatusSchema(Schema):
-    id = fields.Integer(data_key="id", required=True)
-    value = fields.String(data_key="value", required=True)
-
-    @post_load
-    def make_c_host_status(self, data, **kwargs):
-        return HostStatus(**data)
-
-
-class ArenaTierSchema(Schema):
-    id = fields.Integer(data_key="id", required=True)
-    avg_level = fields.Integer(data_key="avg_level", required=True)
-    max_phases = fields.Integer(data_key="max_phases", required=True)
-
-    @post_load
-    def make_c_arena_tier(self, data, **kwargs):
-        return ArenaTier(**data)
-
-
-class AdventureTierSchema(Schema):
-    id = fields.Integer(data_key="id", required=True)
-    avg_level = fields.Integer(data_key="avg_level", required=True)
-
-    @post_load
-    def make_c_adventure_tier(self, data, **kwargs):
-        return AdventureTier(**data)
-
-
-class ShopTypeSchema(Schema):
-    id = fields.Integer(data_key="id", required=True)
-    value = fields.String(data_key="value", required=True)
-    synonyms = fields.List(fields.String, data_key="synonyms", required=False, default=[])
-    tools = fields.List(fields.String, data_key="tools", required=False, default=[])
-
-    @post_load
-    def make_c_shop_type(self, data, **kwargs):
-        return ShopType(**data)
-
-
 class ActivitySchema(Schema):
     id = fields.Integer(data_key="id", required=True)
     value = fields.String(data_key="value", required=True)

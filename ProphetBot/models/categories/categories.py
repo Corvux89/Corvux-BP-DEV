@@ -1,21 +1,22 @@
 import sqlalchemy as sa
 
 from marshmallow import Schema, post_load, fields
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Numeric, BOOLEAN
 
 from ProphetBot.models import metadata
 from ProphetBot.models.db_tables.base import metadata
 
 class CompendiumObject:
-    def __init__(self, key: str, obj: object, table: sa.Table, schema: Schema) -> None:
-        self.key = key
-        self. obj = obj
-        self.table = table
-        self.schema = schema
+    __key__: str
+    __table__: sa.Table
+    __Schema__: Schema
 
 
-class Rarity(object):
-    c_rarity_table = sa.Table(
+
+class Rarity(CompendiumObject):
+    __key__ = "c_rarity"
+
+    __table__ = sa.Table(
         "c_rarity",
         metadata,
         Column("id", Integer, primary_key=True, autoincrement='auto'),
@@ -24,7 +25,7 @@ class Rarity(object):
         Column("seek_dc", Integer, nullable=False)
     )
 
-    class RaritySchema(Schema):
+    class __Schema__(Schema):
         id = fields.Integer(data_key="id", required=True)
         value = fields.String(data_key="value", required=True)
         abbreviation = fields.List(fields.String, data_key="abbreviation", required=True)
@@ -48,15 +49,17 @@ class Rarity(object):
 
 
 
-class BlacksmithType(object):
-    c_blacksmith_type_table = sa.Table(
+class BlacksmithType(CompendiumObject):
+    __key__ = "c_blacksmith_type"
+
+    __table__ = sa.Table(
         "c_blacksmith_type",
         metadata,
         Column("id", Integer, primary_key=True, autoincrement='auto'),
         Column("value", String, nullable=False)
     )
 
-    class BlacksmithTypeSchema(Schema):
+    class __Schema__(Schema):
         id = fields.Integer(data_key="id", required=True)
         value = fields.String(data_key="value", required=True)
 
@@ -73,15 +76,17 @@ class BlacksmithType(object):
         self.id = id
         self.value = value
 
-class ConsumableType(object):
-    c_consumable_type_table = sa.Table(
+class ConsumableType(CompendiumObject):
+    __key__ = "c_consumable_type"
+
+    __table__ = sa.Table(
         "c_consumable_type",
         metadata,
         Column("id", Integer, primary_key=True, autoincrement='auto'),
         Column("value", String, nullable=False)
     )
 
-    class ConsumableTypeSchema(Schema):
+    class __Schema__(Schema):
         id = fields.Integer(data_key="id", required=True)
         value = fields.String(data_key="value", required=True)
 
@@ -98,15 +103,17 @@ class ConsumableType(object):
         self.id = id
         self.value = value
 
-class MagicSchool(object):
-    c_magic_school_table = sa.Table(
+class MagicSchool(CompendiumObject):
+    __key__ = "c_magic_school"
+
+    __table__ = sa.Table(
         "c_magic_school",
         metadata,
         Column("id", Integer, primary_key=True, autoincrement='auto'),
         Column("value", String, nullable=False)
     )
 
-    class MagicSchoolSchema(Schema):
+    class __Schema__(Schema):
         id = fields.Integer(data_key="id", required=True)
         value = fields.String(data_key="value", required=True)
 
@@ -123,15 +130,17 @@ class MagicSchool(object):
         self.id = id
         self.value = value 
 
-class CharacterClass(object):
-    c_character_class_table = sa.Table(
+class CharacterClass(CompendiumObject):
+    __key__ = "c_character_class"
+
+    __table__ = sa.Table(
         "c_character_class",
         metadata,
         Column("id", Integer, primary_key=True, autoincrement='auto'),
         Column("value", String, nullable=False)
     )
 
-    class CharacterClassSchema(Schema):
+    class __Schema__(Schema):
         id = fields.Integer(data_key="id", required=True)
         value = fields.String(data_key="value", required=True)
 
@@ -148,8 +157,10 @@ class CharacterClass(object):
         self.id = id
         self.value = value
 
-class CharacterSubclass(object):
-    c_character_subclass_table = sa.Table(
+class CharacterSubclass(CompendiumObject):
+    __key__ = "c_character_subclass"
+
+    __table__ = sa.Table(
         "c_character_subclass",
         metadata,
         Column("id", Integer, primary_key=True, autoincrement='auto'),
@@ -157,7 +168,7 @@ class CharacterSubclass(object):
         Column("value", String, nullable=False)
     )
 
-    class CharacterSubclassSchema(Schema):
+    class __Schema__(Schema):
         id = fields.Integer(data_key="id", required=True)
         parent = fields.Integer(data_key="parent", required=True)
         value = fields.String(data_key="value", required=True)
@@ -177,15 +188,17 @@ class CharacterSubclass(object):
         self.parent = parent
         self.value = value
 
-class CharacterRace(object):
-    c_character_race_table = sa.Table(
+class CharacterRace(CompendiumObject):
+    __key__ = "c_character_race"
+
+    __table__ = sa.Table(
         "c_character_race",
         metadata,
         Column("id", Integer, primary_key=True, autoincrement='auto'),
         Column("value", String, nullable=False)
     )
 
-    class CharacterRaceSchema(Schema):
+    class __Schema__(Schema):
         id = fields.Integer(data_key="id", required=True)
         value = fields.String(data_key="value", required=True)
 
@@ -202,8 +215,10 @@ class CharacterRace(object):
         self.id = id
         self.value = value
 
-class CharacterSubrace(object):
-    c_character_subrace_table = sa.Table(
+class CharacterSubrace(CompendiumObject):
+    __key__ = "c_character_subrace"
+
+    __table__ = sa.Table(
         "c_character_subrace",
         metadata,
         Column("id", Integer, primary_key=True, autoincrement='auto'),
@@ -211,7 +226,7 @@ class CharacterSubrace(object):
         Column("value", String, nullable=False)
     )
 
-    class CharacterSubraceSchema(Schema):
+    class __Schema__(Schema):
         id = fields.Integer(data_key="id", required=True)
         parent = fields.Integer(data_key="parent", required=True)
         value = fields.String(data_key="value", required=True)
@@ -231,16 +246,175 @@ class CharacterSubrace(object):
         self.parent = parent
         self.value = value
 
-    
+class GlobalModifier(CompendiumObject):
+    __key__ = "c_global_modifier"
+
+    __table__ = sa.Table(
+        "c_global_modifier",
+        metadata,
+        Column("id", Integer, primary_key=True, autoincrement='auto'),
+        Column("value", String, nullable=False),
+        Column("adjustment", Numeric(precision=5, scale=2), nullable=False),
+        Column("max", Integer, nullable=False)
+    )
+
+    class __Schema__(Schema):
+        id = fields.Integer(data_key="id", required=True)
+        value = fields.String(data_key="value", required=True)
+        adjustment = fields.Float(data_key="adjustment", required=True)
+        max = fields.Integer(data_key="max", required=True)
+
+        @post_load
+        def make_c_global_modifier(self, data, **kwargs):
+            return GlobalModifier(**data)
+
+    def __init__(self, id, value, adjustment, max):
+        """
+        :param id: int
+        :param value: str
+        :param adjustment: float
+        :param max: int
+        """
+
+        self.id = id
+        self.value = value
+        self.adjustment = adjustment
+        self.max = max
+
+class HostStatus(CompendiumObject):
+    __key__ = "c_host_status"
+
+    __table__ = sa.Table(
+        "c_host_status",
+        metadata,
+        Column("id", Integer, primary_key=True, autoincrement='auto'),
+        Column("value", String, nullable=False)
+    )
+
+    class HostStatusSchema(Schema):
+        id = fields.Integer(data_key="id", required=True)
+        value = fields.String(data_key="value", required=True)
+
+        @post_load
+        def make_c_host_status(self, data, **kwargs):
+            return HostStatus(**data)
+
+    def __init__(self, id, value):
+        """
+        :param id: int
+        :param value: str
+        """
+
+        self.id = id
+        self.value = value
+
+class ArenaTier(CompendiumObject):
+    __key__ = "c_arena_tier"
+
+    __table__ = sa.Table(
+        "c_arena_tier",
+        metadata,
+        Column("id", Integer, primary_key=True, autoincrement='auto'),
+        Column("avg_level", Integer, nullable=False),
+        Column("max_phases", Integer, nullable=False)
+    )
+
+    class __Schema__(Schema):
+        id = fields.Integer(data_key="id", required=True)
+        avg_level = fields.Integer(data_key="avg_level", required=True)
+        max_phases = fields.Integer(data_key="max_phases", required=True)
+
+        @post_load
+        def make_c_arena_tier(self, data, **kwargs):
+            return ArenaTier(**data)
+
+
+    def __init__(self, id, avg_level, max_phases):
+        """
+        :param id: int
+        :param avg_level: int
+        :param max_phases: int
+        """
+
+        self.id = id
+        self.avg_level = avg_level
+        self.max_phases = max_phases
+
+class AdventureTier(CompendiumObject):
+    __key__ = "c_adventure_tier"
+
+    __table__ = sa.Table(
+        "c_adventure_tier",
+        metadata,
+        Column("id", Integer, primary_key=True, autoincrement='auto'),
+        Column("avg_level", Integer, nullable=False),
+    )
+
+    class __Schema__(Schema):
+        id = fields.Integer(data_key="id", required=True)
+        avg_level = fields.Integer(data_key="avg_level", required=True)
+
+        @post_load
+        def make_c_adventure_tier(self, data, **kwargs):
+            return AdventureTier(**data)
+
+    def __init__(self, id, avg_level):
+        """
+        :param id: int
+        :param avg_level: int
+        """
+
+        self.id = id
+        self.avg_level = avg_level
+
+class ShopType(object):
+    __key__ = "c_shop_type"
+
+    __table__ = sa.Table(
+        "c_shop_type",
+        metadata,
+        Column("id", Integer, primary_key=True, autoincrement='auto'),
+        Column("value", String, nullable=False),
+        Column("synonyms", sa.ARRAY(String), nullable=True, default=[]),
+        Column("tools", sa.ARRAY(String), nullable=True, default=[])
+    )
+
+    class __Schema__(Schema):
+        id = fields.Integer(data_key="id", required=True)
+        value = fields.String(data_key="value", required=True)
+        synonyms = fields.List(fields.String, data_key="synonyms", required=False, default=[])
+        tools = fields.List(fields.String, data_key="tools", required=False, default=[])
+
+        @post_load
+        def make_c_shop_type(self, data, **kwargs):
+            return ShopType(**data)
+
+    def __init__(self, id, value, synonyms, tools):
+        """
+        :param id: int
+        :param value: str
+        :param synonyms: List[str]
+        :param tools: List[str]
+        """
+
+        self.id = id
+        self.value = value
+        self.synonyms = synonyms
+        self.tools = tools
 
 
 CATEGORY_LIST = [
-    CompendiumObject("c_rarity", Rarity, Rarity.c_rarity_table, Rarity.RaritySchema),
-    CompendiumObject("c_blacksmith_type", BlacksmithType, BlacksmithType.c_blacksmith_type_table, BlacksmithType.BlacksmithTypeSchema),
-    CompendiumObject("c_consumable_type", ConsumableType, ConsumableType.c_consumable_type_table, ConsumableType.ConsumableTypeSchema),
-    CompendiumObject("c_magic_school", MagicSchool, MagicSchool.c_magic_school_table, MagicSchool.MagicSchoolSchema),
-    CompendiumObject("c_character_class", CharacterClass, CharacterClass.c_character_class_table, CharacterClass.CharacterClassSchema),
-    CompendiumObject("c_character_subclass", CharacterSubclass, CharacterSubclass.c_character_subclass_table, CharacterSubclass.CharacterSubclassSchema),
-    CompendiumObject("c_character_race", CharacterRace, CharacterRace.c_character_race_table, CharacterRace.CharacterRaceSchema),
-    CompendiumObject("c_character_subrace", CharacterSubrace, CharacterSubrace.c_character_subrace_table, CharacterSubrace.CharacterSubraceSchema)
+    Rarity,
+    BlacksmithType,
+    ConsumableType,
+    MagicSchool,
+    CharacterClass,
+    CharacterSubclass,
+    CharacterRace,
+    CharacterSubrace,
+    GlobalModifier,
+    HostStatus,
+    ArenaTier,
+    AdventureTier,
+    ShopType,
 ]

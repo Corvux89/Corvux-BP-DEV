@@ -9,45 +9,14 @@ from ProphetBot.models.db_tables.base import metadata
 
 
 
-c_global_modifier_table = sa.Table(
-    "c_global_modifier",
-    metadata,
-    Column("id", Integer, primary_key=True, autoincrement='auto'),
-    Column("value", String, nullable=False),
-    Column("adjustment", Numeric(precision=5, scale=2), nullable=False),
-    Column("max", Integer, nullable=False)
-)
 
-c_host_status_table = sa.Table(
-    "c_host_status",
-    metadata,
-    Column("id", Integer, primary_key=True, autoincrement='auto'),
-    Column("value", String, nullable=False)
-)
 
-c_arena_tier_table = sa.Table(
-    "c_arena_tier",
-    metadata,
-    Column("id", Integer, primary_key=True, autoincrement='auto'),
-    Column("avg_level", Integer, nullable=False),
-    Column("max_phases", Integer, nullable=False)
-)
 
-c_adventure_tier_table = sa.Table(
-    "c_adventure_tier",
-    metadata,
-    Column("id", Integer, primary_key=True, autoincrement='auto'),
-    Column("avg_level", Integer, nullable=False),
-)
 
-c_shop_type_table = sa.Table(
-    "c_shop_type",
-    metadata,
-    Column("id", Integer, primary_key=True, autoincrement='auto'),
-    Column("value", String, nullable=False),
-    Column("synonyms", sa.ARRAY(String), nullable=True, default=[]),
-    Column("tools", sa.ARRAY(String), nullable=True, default=[])
-)
+
+
+
+
 
 c_activity_table = sa.Table(
     "c_activity",
